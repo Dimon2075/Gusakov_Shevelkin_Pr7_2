@@ -1,0 +1,43 @@
+﻿<Window x:Class="Pr7_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pr7_2"
+        mc:Ignorable="d"
+        Title="Матрица Шифр" Height="350" Width="500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Ввод текста -->
+        <Label Content="Текст:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="TextInput" Grid.Row="0" Grid.Column="1" Margin="5" />
+
+        <!-- Ввод размеров матрицы -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
+            <Label Content="Строки:"/>
+            <TextBox x:Name="RowsInput" Width="50" Margin="5,0"/>
+            <Label Content="Столбцы:"/>
+            <TextBox x:Name="ColsInput" Width="50" Margin="5,0"/>
+        </StackPanel>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button x:Name="EncryptButton" Content="Зашифровать" Width="100" Margin="10" Click="EncryptButton_Click"/>
+            <Button x:Name="DecryptButton" Content="Расшифровать" Width="100" Margin="10" Click="DecryptButton_Click"/>
+        </StackPanel>
+
+        <!-- Вывод -->
+        <Label Content="Результат:" Grid.Row="3" Grid.Column="0" Margin="0,10,0,0"/>
+        <TextBox x:Name="ResultOutput" Grid.Row="3" Grid.Column="1" Margin="5" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+</Window>
