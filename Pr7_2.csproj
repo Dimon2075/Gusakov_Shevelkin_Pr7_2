@@ -69,6 +69,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatrixCipher.cs" />
+    <Compile Include="MatrixCipher_d.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

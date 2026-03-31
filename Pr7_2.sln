@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.37111.16 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pr7_2", "Pr7_2.csproj", "{326A8AC8-3A8A-4129-B65B-6543FE3F739D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHIFR_TESTS", "..\SHIFR_TESTS\SHIFR_TESTS.csproj", "{6A46A594-F955-4F3A-88A5-BC6E9E8E1163}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{326A8AC8-3A8A-4129-B65B-6543FE3F739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{326A8AC8-3A8A-4129-B65B-6543FE3F739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{326A8AC8-3A8A-4129-B65B-6543FE3F739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A46A594-F955-4F3A-88A5-BC6E9E8E1163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A46A594-F955-4F3A-88A5-BC6E9E8E1163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A46A594-F955-4F3A-88A5-BC6E9E8E1163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A46A594-F955-4F3A-88A5-BC6E9E8E1163}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
