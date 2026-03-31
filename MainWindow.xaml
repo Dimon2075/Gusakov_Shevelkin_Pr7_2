@@ -6,38 +6,31 @@
         xmlns:local="clr-namespace:Pr7_2"
         mc:Ignorable="d"
         Title="Матрица шифр" Height="350" Width="500">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <StackPanel Margin="10">
+        <TextBlock Text="Исходный текст:"/>
+        <TextBox x:Name="TextInput" Height="50" TextWrapping="Wrap" Margin="0,5"/>
 
-        <!-- Ввод текста -->
-        <Label Content="Текст:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBox x:Name="TextInput" Grid.Row="0" Grid.Column="1" Margin="5" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="0,0,5,0">
+                <TextBlock Text="Строк:"/>
+                <TextBox x:Name="RowsInput" Text="4"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                <TextBlock Text="Столбцов:"/>
+                <TextBox x:Name="ColsInput" Text="4"/>
+            </StackPanel>
+        </Grid>
 
-        <!-- Ввод размеров матрицы -->
-        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
-            <Label Content="Строки:"/>
-            <TextBox x:Name="RowsInput" Width="50" Margin="5,0"/>
-            <Label Content="Столбцы:"/>
-            <TextBox x:Name="ColsInput" Width="50" Margin="5,0"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Зашифровать" Click="EncryptButton_Click" Width="100" Margin="5"/>
+            <Button Content="Расшифровать" Click="DecryptButton_Click" Width="100" Margin="5"/>
         </StackPanel>
 
-        <!-- Кнопки -->
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <Button x:Name="EncryptButton" Content="Зашифровать" Width="100" Margin="10" Click="EncryptButton_Click"/>
-            <Button x:Name="DecryptButton" Content="Расшифровать" Width="100" Margin="10" Click="DecryptButton_Click"/>
-        </StackPanel>
-
-        <!-- Вывод -->
-        <Label Content="Результат:" Grid.Row="3" Grid.Column="0" Margin="0,10,0,0"/>
-        <TextBox x:Name="ResultOutput" Grid.Row="3" Grid.Column="1" Margin="5" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
-    </Grid>
+        <TextBlock Text="Результат:"/>
+        <TextBox x:Name="ResultOutput" Height="50" IsReadOnly="True" TextWrapping="Wrap" Margin="0,5"/>
+    </StackPanel>
 </Window>

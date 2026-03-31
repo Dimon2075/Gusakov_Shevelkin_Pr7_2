@@ -29,15 +29,40 @@ namespace Pr7_2
         {
             try
             {
+                // 1. Проверка на пустой текст
                 string text = TextInput.Text;
-                int rows = int.Parse(RowsInput.Text);
-                int cols = int.Parse(ColsInput.Text);
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    MessageBox.Show("Введите текст для шифрования!");
+                    return;
+                }
+
+                // 2. Безопасное чтение чисел (чтобы не было ошибки, если в полях буквы)
+                if (!int.TryParse(RowsInput.Text, out int rows) || !int.TryParse(ColsInput.Text, out int cols))
+                {
+                    MessageBox.Show("Введите корректные целые числа в поля 'Строки' и 'Столбцы'.");
+                    return;
+                }
+
+                // 3. Проверка: влезет ли текст в матрицу?
+                int capacity = rows * cols;
+                if (text.Length > capacity)
+                {
+                    MessageBox.Show($"Текст слишком длинный ({text.Length} симв.) для матрицы {rows}x{cols} ({capacity} мест).\n" +
+                                    $"Увеличьте количество строк или столбцов.");
+                    return;
+                }
+
+                // 4. Шифрование
                 string encrypted = MatrixEncrypt(text, rows, cols);
                 ResultOutput.Text = encrypted;
+
+                // Опционально: можно очистить верхнее поле, чтобы не путаться
+                // TextInput.Clear(); 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}");
+                MessageBox.Show($"Критическая ошибка: {ex.Message}");
             }
         }
 
@@ -46,11 +71,19 @@ namespace Pr7_2
         {
             try
             {
+                // Берем текст ПРЯМО из результата для расшифровки
                 string encryptedText = ResultOutput.Text;
+
+                if (string.IsNullOrWhiteSpace(encryptedText)) return;
+
                 int rows = int.Parse(RowsInput.Text);
                 int cols = int.Parse(ColsInput.Text);
+
                 string decrypted = MatrixDecrypt(encryptedText, rows, cols);
-                ResultOutput.Text = decrypted;
+
+                // Выводим расшифрованный текст обратно в верхнее поле или в MessageBox
+                MessageBox.Show($"Расшифрованный текст: {decrypted}");
+                TextInput.Text = decrypted;
             }
             catch (Exception ex)
             {
@@ -61,51 +94,49 @@ namespace Pr7_2
         // Метод шифрования (по заданию)
         public static string MatrixEncrypt(string text, int rows, int cols)
         {
-            if (rows <= 0 || cols <= 0)
-                throw new ArgumentException("Размеры матрицы должны быть положительными.");
-
             int size = rows * cols;
+            // 1. Дополняем текст пробелами, чтобы матрица была полной
             text = text.PadRight(size, ' ');
 
             char[,] matrix = new char[rows, cols];
-
             int index = 0;
+
+            // 2. ЗАПИСЬ: идем по СТРОКАМ (горизонтально)
             for (int r = 0; r < rows; r++)
                 for (int c = 0; c < cols; c++)
                     matrix[r, c] = text[index++];
 
-            StringBuilder encrypted = new StringBuilder();
+            // 3. ЧТЕНИЕ: идем по СТОЛБЦАМ (вертикально)
+            StringBuilder sb = new StringBuilder();
             for (int c = 0; c < cols; c++)
                 for (int r = 0; r < rows; r++)
-                    encrypted.Append(matrix[r, c]);
+                    sb.Append(matrix[r, c]);
 
-            return encrypted.ToString();
+            return sb.ToString();
         }
 
-        // Метод дешифрования
+        // ИСПРАВЛЕННЫЙ МЕТОД ДЕШИФРОВАНИЯ
         public static string MatrixDecrypt(string text, int rows, int cols)
         {
-            if (rows <= 0 || cols <= 0)
-                throw new ArgumentException("Размеры матрицы должны быть положительными.");
-
             int size = rows * cols;
-            if (text.Length != size)
-                throw new ArgumentException("Длина зашифрованного текста не совпадает с размером матрицы.");
+            // Если текст короче матрицы (вдруг обрезался), дополняем
+            if (text.Length < size) text = text.PadRight(size, ' ');
 
             char[,] matrix = new char[rows, cols];
-
             int index = 0;
-            // Заполняем по столбцам
+
+            // 1. ЗАПОЛНЯЕМ ПО СТОЛБЦАМ (как читали при шифровании)
             for (int c = 0; c < cols; c++)
                 for (int r = 0; r < rows; r++)
                     matrix[r, c] = text[index++];
 
-            StringBuilder original = new StringBuilder();
+            // 2. ЧИТАЕМ ПО СТРОКАМ (восстанавливаем оригинал)
+            StringBuilder sb = new StringBuilder();
             for (int r = 0; r < rows; r++)
                 for (int c = 0; c < cols; c++)
-                    original.Append(matrix[r, c]);
+                    sb.Append(matrix[r, c]);
 
-            return original.ToString().TrimEnd(); // Убираем добавленные пробелы
+            return sb.ToString().TrimEnd();
         }
     }
 }
